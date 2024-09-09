@@ -2,23 +2,33 @@
 //  ContentView.swift
 //  Habite
 //
-//  Created by Anna Wu on 8/25/24.
+//  Created by Anna Wu on 9/9/24.
 //
 
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            StatsView()
+                .tabItem {
+                    Label("History", systemImage: "tray.full")
+                }
+            
+            HomeView()
+                .tabItem {
+                    Label("Home", systemImage: "house")
+                }
+            
+            FocusView()
+                .tabItem {
+                    Label("Focus", systemImage: "hourglass")
+                }
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
 }
+
