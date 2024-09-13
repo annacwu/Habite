@@ -15,6 +15,8 @@
 		928381562C8F7B5600E52346 /* FocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928381552C8F7B5600E52346 /* FocusView.swift */; };
 		928381582C8F7B6400E52346 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928381572C8F7B6400E52346 /* StatsView.swift */; };
 		9283815A2C8F7BC300E52346 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928381592C8F7BC300E52346 /* ContentView.swift */; };
+		9283815C2C94750100E52346 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9283815B2C94750100E52346 /* Habit.swift */; };
+		9283815E2C94753A00E52346 /* HabitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9283815D2C94753A00E52346 /* HabitManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		928381552C8F7B5600E52346 /* FocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusView.swift; sourceTree = "<group>"; };
 		928381572C8F7B6400E52346 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		928381592C8F7BC300E52346 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9283815B2C94750100E52346 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		9283815D2C94753A00E52346 /* HabitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 				928381552C8F7B5600E52346 /* FocusView.swift */,
 				928381572C8F7B6400E52346 /* StatsView.swift */,
 				928381592C8F7BC300E52346 /* ContentView.swift */,
+				9283815B2C94750100E52346 /* Habit.swift */,
+				9283815D2C94753A00E52346 /* HabitManager.swift */,
 			);
 			path = Habite;
 			sourceTree = "<group>";
@@ -149,9 +155,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9283815E2C94753A00E52346 /* HabitManager.swift in Sources */,
 				928381442C7BB82800E52346 /* HabiteApp.swift in Sources */,
 				928381582C8F7B6400E52346 /* StatsView.swift in Sources */,
 				9283815A2C8F7BC300E52346 /* ContentView.swift in Sources */,
+				9283815C2C94750100E52346 /* Habit.swift in Sources */,
 				928381562C8F7B5600E52346 /* FocusView.swift in Sources */,
 				928381522C8F7B2900E52346 /* HomeView.swift in Sources */,
 				928381542C8F7B4B00E52346 /* AddHabitView.swift in Sources */,
