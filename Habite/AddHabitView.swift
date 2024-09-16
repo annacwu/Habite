@@ -16,6 +16,7 @@ enum FrequencyType: String, CaseIterable, Identifiable {
 
 struct AddHabitView: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var habitManager: HabitManager
     
     @State private var name = ""
     @State private var desc = ""
@@ -31,6 +32,7 @@ struct AddHabitView: View {
                     TextField("Habit Name", text: $name)
                     TextField("Description", text: $desc)
                     
+                    // well this super isnt correct
                     DatePicker("Duration", selection: $duration, displayedComponents: [.hourAndMinute])
                                         .datePickerStyle(WheelDatePickerStyle())
                     
@@ -72,6 +74,7 @@ struct AddHabitView: View {
                     }
                     
                     let newHabit = Habit(name: name, description: desc, duration: timeInterval, frequency: frequency)
+                    habitManager.addHabit(newHabit)
                     dismiss()
                 }
             }
