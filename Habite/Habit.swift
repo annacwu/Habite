@@ -36,4 +36,18 @@ enum HabitFrequency: Codable {
 
 enum DayOfWeek: Int, Codable, CaseIterable {
     case sunday, monday, tuesday, wednesday, thursday, friday, saturday
+    
+    var id: Int { self.rawValue }
+        
+    var fullName: String {
+        switch self {
+        case .sunday: return "Sunday"
+        case .monday: return "Monday"
+        case .tuesday: return "Tuesday"
+        case .wednesday: return "Wednesday"
+        case .thursday: return "Thursday"
+        case .friday: return "Friday"
+        case .saturday: return "Saturday"
+        }
+    }
 }
