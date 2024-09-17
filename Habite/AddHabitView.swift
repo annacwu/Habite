@@ -20,7 +20,7 @@ struct AddHabitView: View {
     
     @State private var name = ""
     @State private var desc = ""
-    @State private var duration = Date()
+    @State private var duration = TimeInterval()
     @State private var frequencyType: FrequencyType = .timesPerWeek // default
     @State private var timesPerWeek: Int = 3
     @State private var selectedDays: Set<DayOfWeek> = []
@@ -33,8 +33,7 @@ struct AddHabitView: View {
                     TextField("Description", text: $desc)
                     
                     // well this super isnt correct
-                    DatePicker("Duration", selection: $duration, displayedComponents: [.hourAndMinute])
-                                        .datePickerStyle(WheelDatePickerStyle())
+                    TimeIntervalPicker(selectedInterval: $duration)
                     
                     Picker("How often?", selection: $frequencyType){
                         ForEach(FrequencyType.allCases) { type in // can say all cases because CaseIterable protocol to go through in a foreach
@@ -49,7 +48,7 @@ struct AddHabitView: View {
                         }
                     } else {
                         VStack(alignment: .leading) {
-                            Text("Select applicable days:")
+                            Text("Recurs on:") // rename the tabs too maybe
                             ForEach(DayOfWeek.allCases, id: \.self) { day in
                                 DayPickerRow(day: day, isSelected: selectedDays.contains(day)){
                                     if selectedDays.contains(day) {
@@ -64,7 +63,6 @@ struct AddHabitView: View {
                     
                 }
                 Button("Save"){
-                    let timeInterval = duration.timeIntervalSince1970.truncatingRemainder(dividingBy: 86400) // convert to seconds within day
                     let frequency: HabitFrequency
                     
                     if frequencyType == .timesPerWeek {
@@ -73,7 +71,7 @@ struct AddHabitView: View {
                         frequency = .specificDays(Array(selectedDays))
                     }
                     
-                    let newHabit = Habit(name: name, description: desc, duration: timeInterval, frequency: frequency)
+                    let newHabit = Habit(name: name, description: desc, duration: duration, frequency: frequency)
                     habitManager.addHabit(newHabit)
                     dismiss()
                 }
@@ -101,6 +99,52 @@ struct DayPickerRow: View {
         .onTapGesture {
             action()
         }
+    }
+}
+
+struct TimeIntervalPicker: View {
+    @Binding var selectedInterval: TimeInterval
+    
+    @State private var selectedHours = 0
+    @State private var selectedMinutes = 0
+    
+    let hourRange = Array(0...23)
+    let minuteRange = Array(0...59)
+    
+    var body: some View {
+        VStack {
+            Text ("Duration:")
+                .font(.headline)
+            
+            HStack {
+                // hours
+                Picker("Hours", selection: $selectedHours) {
+                    ForEach(hourRange, id: \.self) { hour in
+                        Text("\(hour) hour").tag(hour)
+                    }
+                }
+                .pickerStyle(WheelPickerStyle())
+                .frame(maxWidth: 160) // so it doesn't overlap with rest
+                
+                // minutes
+                Picker("Minutes", selection: $selectedMinutes) {
+                    ForEach(minuteRange, id: \.self) { min in
+                        Text("\(min) min").tag(min)
+                    }
+                }
+                .pickerStyle(WheelPickerStyle())
+                .frame(maxWidth: 160) // so it doesn't overlap with rest
+            }
+            .onChange(of: selectedHours) {updateTimeInterval()}
+            .onChange(of: selectedMinutes) {updateTimeInterval()} // this might not be right idk
+            
+            Text("Selected Time Interval: \(selectedHours)h \(selectedMinutes)m")
+        }
+        
+    }
+    
+    private func updateTimeInterval() {
+        selectedInterval = TimeInterval((selectedHours * 3600) + (selectedMinutes * 60))
     }
 }
 

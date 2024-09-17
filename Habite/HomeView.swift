@@ -20,6 +20,9 @@ struct HomeView: View {
                     showingAddHabitView = true
                 }
             }
+            .sheet(isPresented: $showingAddHabitView) {
+                AddHabitView()
+            }
         }
     }
 }
