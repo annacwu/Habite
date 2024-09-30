@@ -152,4 +152,5 @@ struct TimeIntervalPicker: View {
 
 #Preview {
     AddHabitView()
+        .environmentObject(HabitManager())
 }

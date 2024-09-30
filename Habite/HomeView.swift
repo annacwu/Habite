@@ -8,12 +8,20 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var habits = [String]()
+    @EnvironmentObject var habitManager: HabitManager
     @State private var showingAddHabitView = false
+    
+    let newHabit = Habit(name: "test", description: "testing", duration: TimeInterval(), frequency: HabitFrequency.timesPerWeek(3))
+
     
     var body: some View {
         NavigationStack {
-            List {}
+            List {
+                Text(newHabit.name)
+                ForEach(habitManager.habits) { habit in
+                    Text(habit.name)
+                }
+            }
             .navigationTitle("Home")
             .toolbar{
                 Button("New Habit", systemImage: "plus") {
@@ -23,10 +31,23 @@ struct HomeView: View {
             .sheet(isPresented: $showingAddHabitView) {
                 AddHabitView()
             }
+            .onAppear {
+                habitManager.addHabit(newHabit)
+            }
         }
+    }
+}
+
+// to customize how i want habits to be displayed
+struct HabitRow: View {
+    var habit: Habit
+    
+    var body: some View {
+        Text(habit.name)
     }
 }
 
 #Preview {
     HomeView()
+        .environmentObject(HabitManager())
 }
