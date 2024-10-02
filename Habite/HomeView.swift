@@ -17,9 +17,17 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             List {
-                Text(newHabit.name)
-                ForEach(habitManager.habits) { habit in
-                    Text(habit.name)
+                Section(header: Text("To do Today")){
+                    ForEach(habitManager.habits.filter { doToday(habit: $0) }) { habit in
+                        Text(habit.name)
+                    }
+                }
+            }
+            List{
+                Section(header: Text("All habits")) {
+                    ForEach(habitManager.habits) { habit in
+                        Text(habit.name)
+                    }
                 }
             }
             .navigationTitle("Home")
@@ -44,6 +52,17 @@ struct HabitRow: View {
     
     var body: some View {
         Text(habit.name)
+    }
+}
+
+func doToday(habit: Habit) -> Bool {
+    let today = Calendar.current.component(.weekday, from: Date()) - 1
+    
+    switch habit.frequency {
+        case .specificDays(let days):
+            return days.contains(DayOfWeek(rawValue: today)!)
+        case .timesPerWeek:
+            return true // FIXME: Add custom logic for handling times per week
     }
 }
 
